@@ -14,51 +14,26 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 public class Produto {
 	
-	//SpringのAnnotation//
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	//本の名前//
 	private String titulo;
-	//本の口コミ//
 	private String descricao;
-	//ページ//
 	private int paginas;
-	@DateTimeFormat
-	private Calendar dataLancamento;
 	
-	//UPLOAD DE ARQUIVO PARA O SERVIDOR//
-	//STRING POR QUE SALVAMOS APENAS O CAMINHO ATE O ARQUIVO//
-	// O ARQUIVO FICA SALVO EM UMA PASTA DENTRO DO SERVIDOR//
-	public String sumarioPath;
-	
-	public String getSumarioPath() {
-		return sumarioPath;
-	}
-	public void setSumarioPath(String sumarioPath) {
-		this.sumarioPath = sumarioPath;
-	}
+	private String sumarioPath;
 
 	@ElementCollection
 	private List<Preco> precos;
 	
-	public List<Preco> getPrecos() {
-		return precos;
-	}
-	public void setPrecos(List<Preco> precos) {
-		this.precos = precos;
-	}
+	@DateTimeFormat
+	private Calendar dataLancamento;
 	
-	//GET & SET//
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getTitulo() {
 		return titulo;
+	}
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 	public String getDescricao() {
 		return descricao;
@@ -66,27 +41,69 @@ public class Produto {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
 	public int getPaginas() {
 		return paginas;
 	}
 	public void setPaginas(int paginas) {
 		this.paginas = paginas;
 	}
+
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public List<Preco> getPrecos() {
+		return precos;
+	}
+	
+	public void setPrecos(List<Preco> precos) {
+		this.precos = precos;
+	}
+	
 	public Calendar getDataLancamento() {
 		return dataLancamento;
 	}
+	
 	public void setDataLancamento(Calendar dataLancamento) {
 		this.dataLancamento = dataLancamento;
 	}
-
-	//クラスをStringにするメソッドです//
-	@Override
-	public String toString() {
-		return "Produto [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", paginas=" + paginas + "]";
+	
+	public String getSumarioPath() {
+		return sumarioPath;
 	}
 	
+	public void setSumarioPath(String sumarioPath) {
+		this.sumarioPath = sumarioPath;
+	}
+	
+	@Override
+	public String toString() {
+		return "Produto [titulo=" + titulo + ", descricao=" + descricao + ", paginas=" + paginas + "]";
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
 
 }
